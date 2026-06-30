@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30T21:54:59.369Z",
+  "updated": "2026-06-30T23:09:36.401Z",
   "r32": [
     {
       "t1": "S. Africa",
@@ -36,9 +36,9 @@
       "c1": "fr",
       "t2": "Sweden",
       "c2": "se",
-      "status": "live",
-      "winner": null,
-      "score": "",
+      "status": "completed",
+      "winner": 0,
+      "score": "3–0",
       "url": "https://www.fifa.com/en/match-centre/match/17/285023/289287/400021523"
     },
     {
@@ -175,7 +175,9 @@
       "status": "upcoming",
       "winner": null,
       "score": "",
-      "url": null
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289288/400021533",
+      "c1": "py",
+      "c2": "fr"
     },
     {
       "status": "upcoming",
