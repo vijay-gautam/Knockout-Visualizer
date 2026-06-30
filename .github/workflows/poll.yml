@@ -1,0 +1,38 @@
+name: Poll FIFA results
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'   # every 5 minutes (GitHub's minimum granularity)
+  workflow_dispatch:          # allow manual runs from the Actions tab
+
+permissions:
+  contents: write             # needed to commit the refreshed data.json
+
+concurrency:
+  group: poll
+  cancel-in-progress: false
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Refresh data.json from FIFA API
+        run: node scripts/poll.mjs
+
+      - name: Commit if changed
+        run: |
+          if [[ -n "$(git status --porcelain data.json)" ]]; then
+            git config user.name  "wc-bot"
+            git config user.email "wc-bot@users.noreply.github.com"
+            git add data.json
+            git commit -m "chore: refresh results $(date -u +%FT%TZ)"
+            git push
+          else
+            echo "No change."
+          fi

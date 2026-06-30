@@ -1,0 +1,94 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 16px 8px;
+  gap: 6px;
+}
+
+h1 {
+  color: #c9a434;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  font-weight: 300;
+  text-transform: uppercase;
+  opacity: 0.85;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#livedot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #d06400;
+  display: none;
+  animation: pulse 1.6s ease-out infinite;
+}
+#livedot.on { display: inline-block; }
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 #d0640077; }
+  70%  { box-shadow: 0 0 0 7px #d0640000; }
+  100% { box-shadow: 0 0 0 0 #d0640000; }
+}
+
+#wrap {
+  flex: 1;
+  min-height: 0;
+  aspect-ratio: 1 / 1;
+  max-width: 100%;
+}
+svg { width: 100%; height: 100%; }
+
+/* Bracket line segments, coloured by match status. */
+.seg { stroke-linecap: round; stroke-linejoin: round; transition: stroke-width 0.1s; }
+.seg.hp { cursor: pointer; }
+.seg.hp:hover { stroke-width: 4 !important; }
+.c-up   { stroke: #2e2510; }
+.c-live { stroke: #d06400; animation: linepulse 1.6s ease-in-out infinite; }
+.c-win  { stroke: #1a5e1e; }
+.c-out  { stroke: #100e08; }
+
+@keyframes linepulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* Hover tooltip. */
+#tt {
+  position: fixed;
+  background: rgba(4, 3, 2, 0.97);
+  border: 1px solid #c9a43430;
+  color: #bbb;
+  padding: 11px 15px;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.8;
+  pointer-events: none;
+  display: none;
+  z-index: 999;
+  max-width: 250px;
+}
+.tt-r { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #6a5a24; margin-bottom: 1px; }
+.tt-m { font-size: 13px; font-weight: 600; color: #eee; }
+.tt-s { color: #7ab8d4; font-size: 11.5px; }
+.tt-a { color: #c9a434; font-size: 10px; margin-top: 3px; }
+
+#legend {
+  display: flex;
+  gap: 18px;
+  margin-top: 14px;
+  font-size: 10px;
+  color: #5a5040;
+  align-items: center;
+  letter-spacing: 0.05em;
+}
+#legend span { display: flex; align-items: center; gap: 6px; }
+#legend i { display: inline-block; width: 22px; height: 2px; border-radius: 1px; }
