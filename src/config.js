@@ -17,7 +17,7 @@ export const RADII = {
 export const RING_BY_DEPTH = ['r32', 'r16', 'qf', 'sf'];
 // Per-depth visual weights.
 export const STROKE_BY_DEPTH = [1.8, 2.2, 2.6, 3];
-export const NODE_SIZE_BY_DEPTH = [13, 13, 13, 16];
+export const NODE_SIZE_BY_DEPTH = [13, 15, 17, 19];
 // Stroke-width multiplier per status class, relative to the round's base width.
 // Upcoming is thinnest; live is bolder; completed (winner/eliminated) bolder still.
 export const STROKE_MULTIPLIER = {
