@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T22:02:48.817Z",
+  "updated": "2026-07-01T23:37:40.024Z",
   "r32": [
     {
       "t1": "S. Africa",
@@ -116,9 +116,9 @@
       "c1": "be",
       "t2": "Senegal",
       "c2": "sn",
-      "status": "live",
-      "winner": null,
-      "score": "",
+      "status": "completed",
+      "winner": 0,
+      "score": "3–2",
       "url": "https://www.fifa.com/en/match-centre/match/17/285023/289287/400021525"
     },
     {
