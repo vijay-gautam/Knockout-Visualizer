@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T03:08:46.766Z",
+  "updated": "2026-07-01T04:38:03.153Z",
   "r32": [
     {
       "t1": "S. Africa",
@@ -66,9 +66,9 @@
       "c1": "mx",
       "t2": "Ecuador",
       "c2": "ec",
-      "status": "live",
-      "winner": null,
-      "score": "",
+      "status": "completed",
+      "winner": 0,
+      "score": "2–0",
       "url": "https://www.fifa.com/en/match-centre/match/17/285023/289287/400021520"
     },
     {
