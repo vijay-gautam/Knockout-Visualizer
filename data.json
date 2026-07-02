@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-02T20:11:34.189Z",
+  "updated": "2026-07-02T21:32:33.242Z",
   "r32": [
     {
       "t1": "S. Africa",
@@ -96,9 +96,9 @@
       "c1": "es",
       "t2": "Austria",
       "c2": "at",
-      "status": "live",
-      "winner": null,
-      "score": "",
+      "status": "completed",
+      "winner": 0,
+      "score": "3–0",
       "url": "https://www.fifa.com/en/match-centre/match/17/285023/289287/400021519"
     },
     {
