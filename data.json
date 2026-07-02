@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-02T01:35:51.582Z",
+  "updated": "2026-07-02T05:40:49.474Z",
   "r32": [
     {
       "t1": "S. Africa",
@@ -106,9 +106,9 @@
       "c1": "us",
       "t2": "Bosnia",
       "c2": "ba",
-      "status": "live",
-      "winner": null,
-      "score": "",
+      "status": "completed",
+      "winner": 0,
+      "score": "2–0",
       "url": "https://www.fifa.com/en/match-centre/match/17/285023/289287/400021524"
     },
     {
@@ -205,7 +205,9 @@
       "status": "upcoming",
       "winner": null,
       "score": "",
-      "url": null
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289288/400021534",
+      "c1": "us",
+      "c2": "be"
     },
     {
       "status": "upcoming",
