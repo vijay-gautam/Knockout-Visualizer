@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-02T23:45:47.278Z",
+  "updated": "2026-07-03T01:20:22.411Z",
   "r32": [
     {
       "t1": "S. Africa",
@@ -86,9 +86,9 @@
       "c1": "pt",
       "t2": "Croatia",
       "c2": "hr",
-      "status": "live",
-      "winner": null,
-      "score": "",
+      "status": "completed",
+      "winner": 0,
+      "score": "2–1",
       "url": "https://www.fifa.com/en/match-centre/match/17/285023/289287/400021526"
     },
     {
@@ -199,7 +199,9 @@
       "status": "upcoming",
       "winner": null,
       "score": "",
-      "url": null
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289288/400021529",
+      "c1": "pt",
+      "c2": "es"
     },
     {
       "status": "upcoming",
