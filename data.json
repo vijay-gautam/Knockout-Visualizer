@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T01:20:22.411Z",
+  "updated": "2026-07-03T05:01:57.019Z",
   "r32": [
     {
       "t1": "S. Africa",
@@ -146,9 +146,9 @@
       "c1": "ch",
       "t2": "Algeria",
       "c2": "dz",
-      "status": "upcoming",
-      "winner": null,
-      "score": "",
+      "status": "completed",
+      "winner": 0,
+      "score": "2–0",
       "url": "https://www.fifa.com/en/match-centre/match/17/285023/289287/400021527"
     },
     {
