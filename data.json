@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-04T01:22:01.654Z",
+  "updated": "2026-07-04T05:00:20.070Z",
   "r32": [
     {
       "t1": "S. Africa",
@@ -156,9 +156,9 @@
       "c1": "co",
       "t2": "Ghana",
       "c2": "gh",
-      "status": "upcoming",
-      "winner": null,
-      "score": "",
+      "status": "completed",
+      "winner": 0,
+      "score": "1–0",
       "url": "https://www.fifa.com/en/match-centre/match/17/285023/289287/400021517"
     }
   ],
@@ -223,7 +223,9 @@
       "status": "upcoming",
       "winner": null,
       "score": "",
-      "url": null
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289288/400021535",
+      "c1": "ch",
+      "c2": "co"
     }
   ],
   "qf": [
