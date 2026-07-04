@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T23:48:30.276Z",
+  "updated": "2026-07-04T01:22:01.654Z",
   "r32": [
     {
       "t1": "S. Africa",
@@ -126,9 +126,9 @@
       "c1": "ar",
       "t2": "Cape Verde",
       "c2": "cv",
-      "status": "live",
-      "winner": null,
-      "score": "",
+      "status": "completed",
+      "winner": 0,
+      "score": "3–2",
       "url": "https://www.fifa.com/en/match-centre/match/17/285023/289287/400021521"
     },
     {
@@ -215,7 +215,9 @@
       "status": "upcoming",
       "winner": null,
       "score": "",
-      "url": null
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289288/400021528",
+      "c1": "ar",
+      "c2": "eg"
     },
     {
       "status": "upcoming",
