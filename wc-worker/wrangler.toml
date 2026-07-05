@@ -2,8 +2,9 @@ name = "wc-worker"
 main = "src/index.js"
 compatibility_date = "2025-01-01"
 
+# 1 minute is Cloudflare's minimum cron granularity.
 [triggers]
-crons = ["*/5 * * * *"]
+crons = ["* * * * *"]
 
 [[kv_namespaces]]
 binding = "BRACKET"

@@ -1,9 +1,5 @@
-// Fixed bracket skeleton: the 16 Round-of-32 pairings (team names + flag codes).
-// KV starts empty, so the Worker rebuilds onto a fresh clone of this each tick.
-// Later rounds are left empty — their teams are filled forward from winners.
-//
-// Keep this in sync with the SPA's src/defaultData.js. If the bracket seeding
-// ever changes, update here and redeploy.
+// The 16 Round-of-32 pairings the Worker rebuilds onto each tick. Later rounds
+// are filled forward from winners. Keep in sync with ../src/defaultData.js.
 
 const blank = () => ({ status: 'upcoming', winner: null, score: '', url: null });
 

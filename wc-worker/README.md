@@ -1,12 +1,12 @@
 # wc-worker — FIFA data API on Cloudflare Workers
 
-The data layer for the World Cup bracket. Replaces `scripts/poll.mjs`, the
-committed `data.json`, and the GitHub Action. The SPA stays on GitHub Pages and
-just fetches its data from this Worker.
+The data layer for the bracket. A cron tick polls the FIFA API and stores the
+current bracket JSON in KV; an HTTP handler serves it to the SPA. The SPA stays
+on GitHub Pages — this Worker hosts no HTML.
 
 ```
-Cron (*/5 min) ─▶ scheduled() ─▶ FIFA API ─▶ map ─▶ KV
-Browser ───────▶ fetch()     ─▶ KV ─▶ JSON + CORS
+Cron (1 min) ─▶ scheduled() ─▶ FIFA API ─▶ map ─▶ KV (only on change)
+Browser ─────▶ fetch()     ─▶ KV ─▶ JSON + CORS
 ```
 
 ## Files
@@ -14,22 +14,24 @@ Browser ───────▶ fetch()     ─▶ KV ─▶ JSON + CORS
 | File | Role |
 |------|------|
 | `src/index.js` | Worker entry — `scheduled()` (cron) + `fetch()` (HTTP). |
-| `src/fifa.js` | FIFA API → bracket JSON (ported from `scripts/poll.mjs`). |
+| `src/fifa.js` | FIFA API → bracket JSON. |
 | `src/seed.js` | Fixed R32 pairings; keep in sync with `../src/defaultData.js`. |
 | `wrangler.toml` | Cron trigger + KV binding config. |
 
 ## Deploy
 
+Use `npx wrangler …` (or `npm run deploy`) so it runs the project's pinned CLI.
+
 ```bash
 cd wc-worker
 npm install
-wrangler login
+npx wrangler login
 
 # 1. Create the KV namespace, paste the printed id into wrangler.toml
-wrangler kv namespace create BRACKET
+npx wrangler kv namespace create BRACKET
 
 # 2. Deploy
-wrangler deploy
+npx wrangler deploy
 
 # 3. (optional) warm KV now instead of waiting for the first cron tick
 curl https://wc-worker.<your-subdomain>.workers.dev/
@@ -49,16 +51,14 @@ The SPA's `DEFAULT_DATA` fallback still covers the Worker being unreachable.
 ## Local testing
 
 ```bash
-wrangler dev                       # serves fetch() at http://localhost:8787
-wrangler dev --test-scheduled      # then: curl 'http://localhost:8787/__scheduled'
+npx wrangler dev                    # serves fetch() at http://localhost:8787
+npx wrangler dev --test-scheduled   # then: curl 'http://localhost:8787/__scheduled'
 ```
 
 ## Notes
 
-- Free plan covers this: cron is supported; KV writes ≈ 288/day (limit 1000),
-  reads well under 100k/day.
+- Runs on the free plan. The cron fires every minute, but KV is written only
+  when results change, so daily writes stay far under the free 1000/day limit.
 - `MatchStatus` mapping (`0` finished, `3` live, else upcoming) lives in
-  `src/fifa.js` — adjust there if a live match colours wrong.
+  `src/fifa.js`.
 - Competition/season ids (`17` / `285023`) are pinned at the top of `src/fifa.js`.
-- Once this is live you can delete `.github/workflows/poll.yml`; keep
-  `scripts/poll.mjs` as a local testing tool if you like.
