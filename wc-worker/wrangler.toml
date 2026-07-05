@@ -1,0 +1,10 @@
+name = "wc-worker"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+[triggers]
+crons = ["*/5 * * * *"]
+
+[[kv_namespaces]]
+binding = "BRACKET"
+id = "d1672d4029c24a728dc78516f2440b87"

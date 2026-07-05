@@ -55,7 +55,7 @@ export const ROUND_DATES = {
   final: 'Jul 19',
 };
 
-export const DATA_URL = 'data.json';
+export const DATA_URL = 'https://wc-worker.n0mad.workers.dev/';
 export const POLL_INTERVAL_MS = 60_000;
 
 export const FLAG_BASE = 'https://flagcdn.com/w80';
