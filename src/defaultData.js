@@ -1,10 +1,6 @@
-// Offline fallback used when data.json can't be fetched (e.g. first load
-// before the poller has run). Same shape as data.json. The live source of
-// truth is data.json, maintained by scripts/poll.mjs.
-//
-// winner: 0 = t1 won, 1 = t2 won, null = not played.
-// R16+ team slots are intentionally empty — they're filled forward from each
-// round's winners by bracketModel.buildBracket().
+// Fallback bracket used when DATA_URL can't be fetched. Same shape as the
+// live data. winner: 0 = t1, 1 = t2, null = not played. R16+ teams are empty;
+// buildBracket() fills them forward from each round's winners.
 
 export const DEFAULT_DATA = {
   updated: '2026-06-30',

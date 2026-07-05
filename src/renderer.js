@@ -20,7 +20,6 @@ function lineClass(match, side) {
   return 'c-up';
 }
 
-
 export class BracketRenderer {
   #scene;
   #tooltip;

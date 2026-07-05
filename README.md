@@ -10,7 +10,7 @@ its FIFA Match Centre page. All free to host and keep live.
 Cloudflare Worker (data)              GitHub Pages (static SPA)
 ┌───────────────────────────┐         ┌────────────────────────┐
 │ wc-worker/                │         │ index.html  (the SPA)  │
-│  cron */5 → scheduled()   │         │ css/ · src/            │
+│  cron 1m → scheduled()    │         │ css/ · src/            │
 │   → fetch FIFA JSON API   │         │ trophy.svg             │
 │   → map matches to slots  │  fetch  │                        │
 │   → KV.put(bracket)       │ ◀────── │ fetch(DATA_URL)        │
@@ -55,15 +55,16 @@ Cloudflare Worker (data)              GitHub Pages (static SPA)
 
 ## Data source
 
-Production reads from the Cloudflare Worker, set in `src/config.js`:
+The SPA fetches results from whatever `DATA_URL` points at (`src/config.js`).
+There are two ways to keep that data fresh — pick one:
 
-```js
-export const DATA_URL = 'https://wc-worker.<subdomain>.workers.dev/';
-```
+| Option | How | Docs |
+|--------|-----|------|
+| **A · Cloudflare Worker** (default) | Worker polls FIFA every minute and serves JSON; `DATA_URL` is the Worker URL. | [`wc-worker/README.md`](wc-worker/README.md) |
+| **B · GitHub Actions** | A scheduled Action polls FIFA, commits `data.json`; `DATA_URL` is `'data.json'`. | [`scripts/README.md`](scripts/README.md) |
 
-For fully-offline local dev you can point it back at the bundled fixture
-(`export const DATA_URL = 'data.json'`) and refresh it with `node scripts/poll.mjs`.
-See [`wc-worker/README.md`](wc-worker/README.md) for deploying/maintaining the Worker.
+For fully-offline local dev, set `DATA_URL = 'data.json'` and refresh the fixture
+with `node scripts/poll.mjs`.
 
 ## Run locally
 
@@ -72,14 +73,16 @@ npx serve -l 3456 .          # serve the SPA (any static server works)
 node scripts/poll.mjs        # optionally refresh the local data.json fixture
 ```
 
-## Deploy (free)
+## Deploy on GitHub Pages
 
 1. Push this repo to GitHub.
-2. Deploy the Worker: see [`wc-worker/README.md`](wc-worker/README.md).
-3. Set `DATA_URL` in `src/config.js` to your Worker URL.
-4. **Settings → Pages → Source: Deploy from branch** (root of `main`).
+2. Set up a data source — **Option A** ([Worker](wc-worker/README.md)) or
+   **Option B** ([Actions](scripts/README.md)) — and set `DATA_URL` accordingly.
+3. **Settings → Pages → Source: Deploy from a branch → `main` / root.**
+4. Open `https://<user>.github.io/<repo>/` — asset links are relative, so it
+   works under the repo subpath.
 
-Pages serves the SPA; the Worker keeps the data fresh on its own cron.
+Merge to `main` before checking Pages; it deploys from `main`.
 
 ## Maintenance notes
 

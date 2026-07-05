@@ -1,5 +1,5 @@
-// Fetches results from data.json and polls on an interval. Knows nothing about
-// rendering — it just delivers raw data (or the fallback) to subscribers.
+// Fetches results from DATA_URL and polls on an interval, delivering raw data
+// (or the fallback) to subscribers.
 
 export class ResultsService {
   #url;
@@ -38,7 +38,7 @@ export class ResultsService {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       data = await res.json();
     } catch {
-      data = this.#fallback; // file:// or data.json not yet published
+      data = this.#fallback;
     }
     this.#subscribers.forEach((cb) => cb(data));
   }

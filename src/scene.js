@@ -1,6 +1,5 @@
 // Builds the static SVG scaffolding once (gradient, glow filters, draw layers)
-// and exposes the layers plus helpers to manage per-render dynamic defs.
-// Owns nothing about the bracket itself — just the canvas it's drawn onto.
+// and exposes helpers to manage per-render dynamic defs.
 
 import { el, clear } from './svgUtil.js';
 import { CANVAS } from './config.js';

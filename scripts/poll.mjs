@@ -1,14 +1,7 @@
 #!/usr/bin/env node
-// ─────────────────────────────────────────────────────────────────────────────
-// World Cup 2026 bracket poller
-//
-// Reads the public FIFA JSON API, maps each knockout match onto a bracket slot
-// in data.json, and writes back status / winner / score / FIFA match URL.
-//
-// Free to run on GitHub Actions cron. No API key. Node 18+ (global fetch).
-//
-//   node scripts/poll.mjs
-// ─────────────────────────────────────────────────────────────────────────────
+// Reads the FIFA JSON API and writes the current bracket to data.json.
+// Local/dev poller for the GitHub Actions option (see scripts/README.md).
+// Node 18+ (global fetch). Run: node scripts/poll.mjs
 import { readFile, writeFile } from 'node:fs/promises';
 
 const COMP = '17';        // FIFA World Cup
@@ -16,8 +9,7 @@ const SEASON = '285023';  // 2026 edition
 const API = `https://api.fifa.com/api/v3/calendar/matches?idCompetition=${COMP}&idSeason=${SEASON}&count=500&language=en`;
 const DATA = new URL('../data.json', import.meta.url);
 
-// FIFA tri-code (IdCountry) → our flagcdn 2-letter code.
-// If a match isn't matching, check the team's IdCountry in the API and fix here.
+// FIFA tri-code (IdCountry) → flagcdn 2-letter code.
 const FIFA2CC = {
   RSA:'za', CAN:'ca', NED:'nl', MAR:'ma', GER:'de', PAR:'py', FRA:'fr', SWE:'se',
   BRA:'br', JPN:'jp', CIV:'ci', NOR:'no', MEX:'mx', ECU:'ec', ENG:'gb-eng', COD:'cd',
@@ -25,9 +17,7 @@ const FIFA2CC = {
   ARG:'ar', CPV:'cv', AUS:'au', EGY:'eg', SUI:'ch', ALG:'dz', COL:'co', GHA:'gh',
 };
 
-// MatchStatus: 0 = finished, 3 = live (in progress), anything else = not started.
-// (Verify against a live match if the colours look wrong — these are the
-//  commonly observed FIFA v3 values.)
+// MatchStatus: 0 = finished, 3 = live, anything else = not started.
 function statusOf(ms) {
   if (ms === 3) return 'live';
   if (ms === 0) return 'completed';

@@ -1,25 +1,23 @@
-// Static configuration: geometry, palette, sizing, schedule, polling.
-// Pure data — no logic, no DOM. Tweak the bracket's look/behaviour here.
+// Configuration for the bracket's geometry, palette, sizing and polling.
 
 export const CANVAS = { width: 840, height: 840 };
 export const CENTER = { x: CANVAS.width / 2, y: CANVAS.height / 2 };
 
-// Radius of each concentric ring, outermost (team badges) to innermost.
+// Radius of each ring, outermost (badges) to innermost (semi-finals).
 export const RADII = {
-  badge: 388,  // team flag badges
-  r32: 314,    // Round-of-32 match nodes
+  badge: 388,
+  r32: 314,
   r16: 244,
   qf: 176,
   sf: 112,
 };
 
-// Ring keys indexed by round depth (0 = R32 … 3 = SF).
+// Indexed by round depth: 0 = R32, 1 = R16, 2 = QF, 3 = SF.
 export const RING_BY_DEPTH = ['r32', 'r16', 'qf', 'sf'];
-// Per-depth visual weights.
 export const STROKE_BY_DEPTH = [1.8, 2.2, 2.6, 3];
 export const NODE_SIZE_BY_DEPTH = [13, 15, 17, 19];
-// Stroke-width multiplier per status class, relative to the round's base width.
-// Upcoming is thinnest; live is bolder; completed (winner/eliminated) bolder still.
+
+// Stroke-width multiplier per status: upcoming thin, live bolder, completed boldest.
 export const STROKE_MULTIPLIER = {
   'c-up': 1,
   'c-live': 1.8,
@@ -40,7 +38,6 @@ export const COLORS = {
 export const SHIELD = { radius: 27 };
 export const TROPHY = { href: 'trophy.svg', width: 104, height: 116, offsetY: -4 };
 
-// Round display names and per-match dates (pairing is fixed by array order).
 export const ROUND_NAMES = {
   r32: 'Round of 32',
   r16: 'Round of 16',

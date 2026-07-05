@@ -1,6 +1,5 @@
-// Bracket domain model. Turns raw data (data.json / DEFAULT_DATA) into a
-// renderable bracket, filling each later round's team slots forward from the
-// previous round's winners. No DOM — pure data transformation.
+// Turns raw data into a renderable bracket, filling each later round's teams
+// forward from the previous round's winners.
 
 import { ROUND_NAMES, ROUND_DATES } from './config.js';
 
@@ -14,7 +13,7 @@ export function winnerTeam(match) {
   return null;
 }
 
-// Convenience: winner's flag code, or null. Used by the renderer for nodes.
+// Winner's flag code, or null.
 export function winnerCode(match) {
   const w = winnerTeam(match);
   return w ? w.code : null;
