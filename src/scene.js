@@ -19,6 +19,7 @@ function buildGlowFilter(id, deviation) {
   return filter;
 }
 
+
 export function createScene(svg) {
   const defs = el('defs');
   defs.appendChild(buildBackgroundGradient());

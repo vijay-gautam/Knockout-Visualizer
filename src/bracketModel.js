@@ -53,8 +53,22 @@ export function buildBracket(data) {
   return { r32, r16, qf, sf, final };
 }
 
+const allMatches = (bracket) =>
+  [...bracket.r32, ...bracket.r16, ...bracket.qf, ...bracket.sf, bracket.final];
+
 // True if any match anywhere in the bracket is currently live.
 export function hasLiveMatch(bracket) {
-  return [...bracket.r32, ...bracket.r16, ...bracket.qf, ...bracket.sf, bracket.final]
-    .some((m) => m.status === 'live');
+  return allMatches(bracket).some((m) => m.status === 'live');
+}
+
+// Flag codes of every team that has lost a completed match, in any round — so
+// a team stays dimmed once knocked out, not only in the round it lost.
+export function eliminatedTeams(bracket) {
+  const out = new Set();
+  for (const m of allMatches(bracket)) {
+    if (m.status === 'completed' && m.winner != null) {
+      out.add(m.winner === 0 ? m.c2 : m.c1);
+    }
+  }
+  return out;
 }

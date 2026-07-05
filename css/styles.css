@@ -58,7 +58,7 @@ svg { width: 100%; height: 100%; }
 .c-up   { stroke: #2e2510; }
 .c-live { stroke: #d06400; animation: linepulse 1.6s ease-in-out infinite; }
 .c-win  { stroke: #1a5e1e; }
-.c-out  { stroke: #100e08; }
+.c-out  { stroke: #7a2a24; }
 
 @keyframes linepulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 

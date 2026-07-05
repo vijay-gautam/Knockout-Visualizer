@@ -33,6 +33,7 @@ export const COLORS = {
   badgeFill: '#0d0b05',
   winnerNodeFill: '#0a0800',
   eliminatedStroke: '#221e12',
+  moat: '#050403', // dark disc behind each node, separating it from the arms
 };
 
 export const SHIELD = { radius: 27 };

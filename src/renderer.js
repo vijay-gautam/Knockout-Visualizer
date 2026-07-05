@@ -4,7 +4,7 @@
 import { el } from './svgUtil.js';
 import { point, slotAngle, nodeAngle, shortestSweep, distance } from './geometry.js';
 import { shieldPath, hexagonPoints, flagUrl } from './shapes.js';
-import { winnerCode } from './bracketModel.js';
+import { winnerCode, eliminatedTeams } from './bracketModel.js';
 import {
   RADII, RING_BY_DEPTH, STROKE_BY_DEPTH, NODE_SIZE_BY_DEPTH, STROKE_MULTIPLIER,
   COLORS, SHIELD, TROPHY, CENTER,
@@ -24,6 +24,7 @@ export class BracketRenderer {
   #scene;
   #tooltip;
   #clipSeq = 0;
+  #eliminated = new Set();
 
   constructor(scene, tooltip) {
     this.#scene = scene;
@@ -33,6 +34,7 @@ export class BracketRenderer {
   render(bracket) {
     this.#scene.clearDynamic();
     this.#clipSeq = 0;
+    this.#eliminated = eliminatedTeams(bracket);
 
     // R32 … SF share one geometry; only the feeder ring differs by depth.
     [bracket.r32, bracket.r16, bracket.qf, bracket.sf].forEach((matches, depth) =>
@@ -59,11 +61,13 @@ export class BracketRenderer {
 
       this.#drawArm(point(fromR, angleA), angleA, nodeR, nodeA, lineClass(match, 0), stroke, match);
       this.#drawArm(point(fromR, angleB), angleB, nodeR, nodeA, lineClass(match, 1), stroke, match);
-      this.#drawNode(point(nodeR, nodeA), winnerCode(match), nodeSize);
+
+      const wc = winnerCode(match);
+      this.#drawNode(point(nodeR, nodeA), wc, nodeSize, wc ? this.#eliminated.has(wc) : false);
 
       if (depth === 0) {
-        this.#drawBadge(point(fromR, angleA), match.c1, match.winner === 1, match);
-        this.#drawBadge(point(fromR, angleB), match.c2, match.winner === 0, match);
+        this.#drawBadge(point(fromR, angleA), match.c1, this.#eliminated.has(match.c1), match);
+        this.#drawBadge(point(fromR, angleB), match.c2, this.#eliminated.has(match.c2), match);
       }
     });
   }
@@ -96,15 +100,23 @@ export class BracketRenderer {
     this.#scene.layers.lines.appendChild(node);
   }
 
-  // Match node: winner's flag in a circle, or a hollow hexagon if undecided.
-  #drawNode(pos, code, r) {
+  // Match node: winner's flag in a circle (dimmed if that team is later
+  // eliminated), or a hollow hexagon if the match is undecided.
+  #drawNode(pos, code, r, eliminated = false) {
     const g = el('g', { transform: `translate(${pos.x.toFixed(1)},${pos.y.toFixed(1)})` });
+    // Dark moat so the converging arms stop cleanly at the node's edge.
+    g.appendChild(el('circle', { r: r + 3, fill: COLORS.moat }));
     if (code) {
       const clipId = this.#clip(el('circle', { cx: 0, cy: 0, r: r - 2 }));
-      g.appendChild(el('circle', { r, fill: COLORS.winnerNodeFill, stroke: COLORS.gold, 'stroke-width': '1.5' }));
+      g.appendChild(el('circle', {
+        r, fill: COLORS.winnerNodeFill,
+        stroke: eliminated ? COLORS.eliminatedStroke : COLORS.gold, 'stroke-width': '1.6',
+        opacity: eliminated ? '0.7' : '1',
+      }));
       g.appendChild(el('image', {
         href: flagUrl(code), x: -(r - 2), y: -(r - 2), width: (r - 2) * 2, height: (r - 2) * 2,
         'clip-path': `url(#${clipId})`, preserveAspectRatio: 'xMidYMid slice',
+        opacity: eliminated ? '0.2' : '1',
       }));
     } else {
       g.appendChild(el('polygon', {
