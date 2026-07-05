@@ -1,3 +1,5 @@
+[![pages-build-deployment](https://github.com/vijay-gautam/Knockout-Visualizer/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/vijay-gautam/Knockout-Visualizer/actions/workflows/pages/pages-build-deployment)
+
 # World Cup 2026 — Knockout Bracket
 
 A single-page circular knockout bracket. Lines are colour-coded by match status,
