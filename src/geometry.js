@@ -3,22 +3,32 @@
 import { CENTER } from './config.js';
 
 const TWO_PI = Math.PI * 2;
-const TOTAL_SLOTS = 32; // 32 R32 team-slot positions around the circle
+const TOTAL_SLOTS = 32;       // 32 R32 team-slot positions around the circle
+const HALF = TOTAL_SLOTS / 2; // slots per bracket half
+const STEP = TWO_PI / TOTAL_SLOTS;
+// First right-half slot sits half a step below 12 o'clock, so the two halves
+// straddle the vertical axis with a gap at top/bottom instead of a badge on it.
+const RIGHT_START = -Math.PI / 2 + STEP / 2;
 
 // Point on a circle of radius r at angle a (radians), centred on the canvas.
 export function point(r, a) {
   return { x: CENTER.x + r * Math.cos(a), y: CENTER.y + r * Math.sin(a) };
 }
 
-// Angle of team slot s (0..31), clockwise starting at 12 o'clock.
-export function slotAngle(s) {
-  return -Math.PI / 2 + (s / TOTAL_SLOTS) * TWO_PI;
+// Angle of team slot `pos` (may be fractional for node midpoints).
+// Slots 0..15 fill the right semicircle; 16..31 mirror them about the vertical
+// axis onto the left. Mirroring (not rotating) the left half keeps the two
+// halves — and therefore the two final nodes — level with each other.
+export function slotAngle(pos) {
+  if (pos < HALF) return RIGHT_START + pos * STEP;
+  return Math.PI - (RIGHT_START + (pos - HALF) * STEP);
 }
 
 // Mid-angle of match node `idx` at a given round depth (0 = R32 … 3 = SF).
+// A node spans 2^(depth+1) team slots; its angle is that span's midpoint.
 export function nodeAngle(idx, depth) {
   const span = 2 ** (depth + 1);
-  return slotAngle(idx * span + span / 2 - 0.5);
+  return slotAngle(idx * span + (span - 1) / 2);
 }
 
 // Sweep flag (0|1) for the shortest arc from angle `fromA` to `toA`.
